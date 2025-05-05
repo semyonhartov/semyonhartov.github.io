@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главный экран</title>
+    <style>
+        :root{
+                --bg-color: #ffffff;
+                --text-color: #000000;
+                --navbar-bg: #f0f0f0;
+                --table-border: #e0e0e0;
+                --th-bg: #f0f0f0;
+                --active-color: #007bff;
+            }
+            .dark-theme {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --navbar-bg: #1e1e1e;
+            --table-border: #686868;
+            --th-bg: #333333;
+            --active-color: #4d90fe;
+            }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--bg-color); 
+            color: var(--text-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 50px;
+            box-sizing: border-box;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .theme-icon {
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .purchase-history {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* Main content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .day-group {
+            margin-bottom: 24px;
+        }
+        
+        .day-header {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 16px 0 8px 0;
+            color: #1d1d1f;
+        }
+        
+        .transaction {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .time {
+            color: #86868b;
+            font-size: 15px;
+        }
+        
+        .store-name {
+            font-weight: 600;
+            font-size: 17px;
+        }
+        
+        .items-list {
+            margin: 12px 0;
+        }
+        
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .item-name {
+            flex: 2;
+            color: #1d1d1f;
+        }
+        
+        .item-quantity {
+            flex: 1;
+            text-align: center;
+            color: #86868b;
+        }
+        
+        .item-price {
+            flex: 1;
+            text-align: right;
+            color: #1d1d1f;
+            font-family: 'SF Mono', monospace;
+        }
+        
+        .transaction-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #e0e0e0;
+            font-weight: 600;
+        }
+        
+        .items-count {
+            color: #86868b;
+        }
+        
+        .total-sum {
+            color: #1d1d1f;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #86868b;
+        }
+
+        .error {
+            color: #ff3b30;
+            padding: 20px;
+            text-align: center;
+        }
+        /* Navigation bar */
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--navbar-bg);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .nav-item.active {
+            font-weight: bold;
+            color: var(--active-color);
+        }
+
+        /* Page views */
+        .page-view {
+            display: none;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-view.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* History page */
+        .history-header {
+            padding: 10px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /* Dark theme */
+        body.dark-theme {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-theme .navbar {
+            background-color: #1e1e1e;
+        }
+        #transactions-table{
+            overflow: hidden;
+            margin: 10px 0;
+            border: 1px solid var(--table-border);
+            border-collapse: collapse;
+            border-radius: 10px;
+            transition: border-color 0.3s;
+        }
+        #transactions-table th{
+            padding: 4px; 
+            background-color: var(--th-bg);
+        }
+        #transactions-table td {
+            border-top: 1px solid var(--table-border);
+            padding: 4px;
+        }
+        #transactions-table td, #transactions-table th {
+            padding: 5px 10px; 
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="page-view active" id="main-page">
+            <div class="header">
+                <div class="header-title">Мои расходы</div>
+                <div class="theme-icon" id="theme-toggle">🌓</div>
+            </div>
+            <div class="main-content">
+                <!-- Chart view will be inserted here -->
+                <div id="chart-container"></div>
+            </div>
+            <div class="navbar">
+                <div class="nav-item active" data-route="/">Главная</div>
+                <div class="nav-item" data-route="/history">История</div>
+            </div>
+        </div>
+
+        <div class="page-view" id="history-page">
+            <div class="header">
+                <div class="history-header">История покупок</div>
+                <div class="theme-icon" id="theme-toggle-history">🌓</div>
+            </div>
+            <div class="main-content">
+                <!-- History view will be inserted here -->
+                <div id="history-container">
+                    <table id="transactions-table" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Описание</th>
+                                <th>Сумма</th>
+                                <th>Категория</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Transactions will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+            <div class="navbar">
+                <div class="nav-item" data-route="/">Главная</div>
+                <div class="nav-item active" data-route="/history">История</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Transaction Manager (simplified)
+        class TransactionManager {
+            constructor() {
+                this.transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            }
+
+            addTransaction(transaction) {
+                this.transactions.push(transaction);
+                this.saveToLocalStorage();
+            }
+
+            getTransactions() {
+                return this.transactions;
+            }
+
+            saveToLocalStorage() {
+                localStorage.setItem('transactions', JSON.stringify(this.transactions));
+            }
+        }
+
+        // Theme management
+        class ThemeManager {
+            constructor() {
+                this.isDark = localStorage.getItem('theme') === 'dark';
+                this.applyTheme();
+            }
+
+            toggleTheme() {
+                this.isDark = !this.isDark;
+                localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                this.applyTheme();
+            }
+
+            applyTheme() {
+                document.body.classList.toggle('dark-theme', this.isDark);
+            }
+        }
+
+        // Main application
+        class MyExpensesApp {
+            constructor() {
+                this.transactionManager = new TransactionManager();
+                this.themeManager = new ThemeManager();
+                this.currentRoute = '/';
+                
+                this.initElements();
+                this.bindEvents();
+                this.routeChange('/');
+            }
+
+            initElements() {
+                this.mainPage = document.getElementById('main-page');
+                this.historyPage = document.getElementById('history-page');
+                
+                this.themeToggles = document.querySelectorAll('.theme-icon');
+                this.navItems = document.querySelectorAll('.nav-item');
+                
+                // Initialize chart (placeholder - you would use a chart library like Chart.js)
+                this.initChart();
+                
+                // Initialize history table
+                this.updateHistoryTable();
+            }
+
+            bindEvents() {
+                // Theme toggles
+                this.themeToggles.forEach(toggle => {
+                    toggle.addEventListener('click', () => this.themeManager.toggleTheme());
+                });
+                
+                // Navigation
+                this.navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const route = item.getAttribute('data-route');
+                        this.routeChange(route);
+                    });
+                });
+            }
+
+            routeChange(route) {
+                this.currentRoute = route;
+                
+                // Hide all pages
+                this.mainPage.classList.remove('active');
+                this.historyPage.classList.remove('active');
+                
+                // Update nav items
+                this.navItems.forEach(item => {
+                    item.classList.toggle('active', item.getAttribute('data-route') === route);
+                });
+                
+                // Show the correct page
+                if (route === '/') {
+                    this.mainPage.classList.add('active');
+                } else if (route === '/history') {
+                    this.historyPage.classList.add('active');
+                    this.updateHistoryTable();
+                }
+                
+                // Update browser history
+                history.pushState({}, '', route);
+            }
+
+            initChart() {
+                // This is a placeholder - you would use Chart.js or similar
+                const chartContainer = document.getElementById('chart-container');
+                chartContainer.innerHTML = '<div style="width: 100%; height: 300px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">Chart will be displayed here</div>';
+               
+            }
+
+            
+            updateHistoryTable() {
+                const transactions = this.transactionManager.getTransactions();
+                const tbody = document.querySelector('#transactions-table tbody');
+                tbody.innerHTML = '';
+                
+                transactions.forEach(transaction => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${transaction.date}</td>
+                        <td>${transaction.description}</td>
+                        <td>${transaction.amount}</td>
+                        <td>${transaction.category}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        }
+
+        // Initialize the app when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new MyExpensesApp();
+            
+            // Handle browser back/forward
+            window.addEventListener('popstate', () => {
+                app.routeChange(window.location.pathname || '/');
+            });
+        });
+    </script>
+</body>
+</html>

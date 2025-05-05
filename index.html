@@ -1,364 +1,271 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главный экран</title>
+    <title>Финансовый трекер</title>
     <style>
-        :root{
-                --bg-color: #ffffff;
-                --text-color: #000000;
-                --navbar-bg: #f0f0f0;
-                --table-border: #e0e0e0;
-                --th-bg: #f0f0f0;
-                --active-color: #007bff;
-            }
-            .dark-theme {
-            --bg-color: #121212;
-            --text-color: #ffffff;
-            --navbar-bg: #1e1e1e;
-            --table-border: #686868;
-            --th-bg: #333333;
-            --active-color: #4d90fe;
-            }
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: var(--bg-color); 
-            color: var(--text-color);
+            background-color: #f5f5f7;
+            color: #1d1d1f;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            box-sizing: border-box;
+        .page {
+            display: none;
+            flex: 1;
+            padding: 20px;
         }
 
-        /* Header styles */
-        .header {
+        .page.active {
+            display: block;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #86868b;
+        }
+        
+        .error {
+            color: #ff3b30;
+            padding: 20px;
+            text-align: center;
+        }
+        .transaction-footer {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            height: 50px;
-            box-sizing: border-box;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #e0e0e0;
+            font-weight: 600;
         }
-
-        .header-title {
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            flex-grow: 1;
-        }
-
-        .theme-icon {
-            cursor: pointer;
-            font-size: 24px;
-        }
-
-        /* Main content */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
-            gap: 20px;
-        }
-
-        /* Navigation bar */
+        
+        /* Навигация */
         .navbar {
-            display: flex;
-            justify-content: space-around;
-            background-color: var(--navbar-bg);
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
+            display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            background: #fff;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
 
         .nav-item {
             cursor: pointer;
             padding: 10px 20px;
-            text-align: center;
+            border-radius: 8px;
+            transition: all 0.3s;
         }
 
         .nav-item.active {
-            font-weight: bold;
-            color: var(--active-color);
+            background: #007bff;
+            color: white;
         }
 
-        /* Page views */
-        .page-view {
-            display: none;
-            flex: 1;
-            width: 100%;
+        .purchase-history {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .transaction {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .transaction {
+            margin-bottom: 24px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .page-view.active {
+        .store-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+
         }
 
-        /* History page */
-        .history-header {
-            padding: 10px 20px;
-            font-size: 20px;
-            font-weight: bold;
-            text-align: left;
+        .store-name {
+            font-weight: 600;
+            font-size: 17px;
+            color: #000000;
         }
 
-        /* Dark theme */
-        body.dark-theme {
-            background-color: #121212;
-            color: #ffffff;
+        .transaction-time {
+            color: #666666;
+            font-size: 14px;
         }
 
-        body.dark-theme .navbar {
-            background-color: #1e1e1e;
-        }
-        #transactions-table{
-            overflow: hidden;
-            margin: 10px 0;
-            border: 1px solid var(--table-border);
-            border-collapse: collapse;
-            border-radius: 10px;
-            transition: border-color 0.3s;
-        }
-        #transactions-table th{
-            padding: 4px; 
-            background-color: var(--th-bg);
-        }
-        #transactions-table td {
-            border-top: 1px solid var(--table-border);
-            padding: 4px;
-        }
-        #transactions-table td, #transactions-table th {
-            padding: 5px 10px; 
+        .items-list {
+            margin: 12px 0;
         }
 
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 6px 0;
+        }
+
+        .item-name {
+            flex: 2;
+            color: #333333;
+        }
+
+        .item-details {
+            flex: 1;
+            text-align: right;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .items-count {
+            color: #666666;
+            font-size: 14px;
+        }
+        .item-quantity {
+            color: #666666;
+            white-space: nowrap;
+        }
+
+        .total-sum {
+            color: #000000;
+            font-size: 16px;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            gap: 20px;
+        }
+
+        .month-header {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px 0;
+            color: #000000;
+        }
+
+        .day-group {
+            margin-bottom: 32px;
+        }
+        
+        .day-header {
+            font-size: 18px;
+            font-weight: 500;
+            color: #666666;
+            margin: 0 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eeeeee;
+        }
+        
     </style>
 </head>
 <body>
-    <div id="app">
-        <div class="page-view active" id="main-page">
-            <div class="header">
-                <div class="header-title">Мои расходы</div>
-                <div class="theme-icon" id="theme-toggle">🌓</div>
-            </div>
-            <div class="main-content">
-                <!-- Chart view will be inserted here -->
-                <div id="chart-container"></div>
-            </div>
-            <div class="navbar">
-                <div class="nav-item active" data-route="/">Главная</div>
-                <div class="nav-item" data-route="/history">История</div>
+    <!-- Главная -->
+    <div class="page active" id="main-page">
+        <div class="container">
+            <h1>Главная</h1>
+            <div id="chart-container">
+                <!-- Здесь будет график -->
             </div>
         </div>
-
-        <div class="page-view" id="history-page">
-            <div class="header">
-                <div class="history-header">История покупок</div>
-                <div class="theme-icon" id="theme-toggle-history">🌓</div>
-            </div>
-            <div class="main-content">
-                <!-- History view will be inserted here -->
-                <div id="history-container">
-                    <table id="transactions-table" width="100%" style="border: 1px solid black">
-                        <thead>
-                            <tr>
-                                <th>Дата</th>
-                                <th>Описание</th>
-                                <th>Сумма</th>
-                                <th>Категория</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Transactions will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="navbar">
-                <div class="nav-item" data-route="/">Главная</div>
-                <div class="nav-item active" data-route="/history">История</div>
+        <div class="recent-transactions">
+            <h2 class="recent-title">Последние операции</h2>
+            <div id="recent-list" class="transactions-list">
+                <!-- Транзакции будут вставлены здесь -->
+                 
             </div>
         </div>
     </div>
 
+    <!-- История -->
+    <div class="page" id="history-page">
+        <div class="purchase-history">
+            <h1>История покупок</h1>
+            <div id="loading" class="loading">Загрузка данных...</div>
+            <div id="error" class="error" style="display: none;"></div>
+            
+            <div id="history-container"></div>
+            <script src="purchares.js"></script>
+        </div>
+        
+    </div>
+    
+    <!-- Навбар -->
+    <div class="navbar">
+        <div class="nav-item active" data-page="main-page">Главная</div>
+        <div class="nav-item" data-page="history-page">История</div>
+    </div>
+    <script src="recentPurchares.js"></script>
     <script>
-        // Transaction Manager (simplified)
-        class TransactionManager {
+        class App {
             constructor() {
-                this.transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-            }
-
-            addTransaction(transaction) {
-                this.transactions.push(transaction);
-                this.saveToLocalStorage();
-            }
-
-            getTransactions() {
-                return this.transactions;
-            }
-
-            saveToLocalStorage() {
-                localStorage.setItem('transactions', JSON.stringify(this.transactions));
-            }
-        }
-
-        // Theme management
-        class ThemeManager {
-            constructor() {
-                this.isDark = localStorage.getItem('theme') === 'dark';
-                this.applyTheme();
-            }
-
-            toggleTheme() {
-                this.isDark = !this.isDark;
-                localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
-                this.applyTheme();
-            }
-
-            applyTheme() {
-                document.body.classList.toggle('dark-theme', this.isDark);
-            }
-        }
-
-        // Main application
-        class MyExpensesApp {
-            constructor() {
-                this.transactionManager = new TransactionManager();
-                this.themeManager = new ThemeManager();
-                this.currentRoute = '/';
-                
-                this.initElements();
-                this.bindEvents();
-                this.routeChange('/');
-            }
-
-            initElements() {
-                this.mainPage = document.getElementById('main-page');
-                this.historyPage = document.getElementById('history-page');
-                
-                this.themeToggles = document.querySelectorAll('.theme-icon');
+                this.pages = document.querySelectorAll('.page');
                 this.navItems = document.querySelectorAll('.nav-item');
-                
-                // Initialize chart (placeholder - you would use a chart library like Chart.js)
-                this.initChart();
-                
-                // Initialize history table
-                this.updateHistoryTable();
+                this.initNavigation();
+                this.loadData();
             }
 
-            bindEvents() {
-                // Theme toggles
-                this.themeToggles.forEach(toggle => {
-                    toggle.addEventListener('click', () => this.themeManager.toggleTheme());
-                });
-                
-                // Navigation
+            initNavigation() {
                 this.navItems.forEach(item => {
                     item.addEventListener('click', () => {
-                        const route = item.getAttribute('data-route');
-                        this.routeChange(route);
+                        const pageId = item.dataset.page;
+                        this.showPage(pageId);
+                        this.setActiveNavItem(item);
                     });
                 });
             }
 
-            routeChange(route) {
-                this.currentRoute = route;
-                
-                // Hide all pages
-                this.mainPage.classList.remove('active');
-                this.historyPage.classList.remove('active');
-                
-                // Update nav items
+            showPage(pageId) {
+                this.pages.forEach(page => {
+                    page.classList.toggle('active', page.id === pageId);
+                });
+            }
+
+            setActiveNavItem(activeItem) {
                 this.navItems.forEach(item => {
-                    item.classList.toggle('active', item.getAttribute('data-route') === route);
+                    item.classList.toggle('active', item === activeItem);
                 });
-                
-                // Show the correct page
-                if (route === '/') {
-                    this.mainPage.classList.add('active');
-                } else if (route === '/history') {
-                    this.historyPage.classList.add('active');
-                    this.updateHistoryTable();
-                }
-                
-                // Update browser history
-                history.pushState({}, '', route);
             }
 
-            initChart() {
-                // This is a placeholder - you would use Chart.js or similar
-                const chartContainer = document.getElementById('chart-container');
-                chartContainer.innerHTML = '<div style="width: 100%; height: 300px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">Chart will be displayed here</div>';
-                
-                // In a real app, you would initialize a chart library here
-                // Example with Chart.js:
-                /*
-                const ctx = document.createElement('canvas');
-                chartContainer.appendChild(ctx);
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-                        datasets: [{
-                            label: 'Expenses',
-                            data: [12, 19, 3, 5, 2],
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
+            loadData() {
+                const transactions = [
+                    {
+                        date: "2023-10-05",
+                        time: "14:30",
+                        store: "Магазин",
+                        items: [
+                            {name: "Товар 1", price: 100, quantity: 2, sum: 200},
+                            {name: "Товар 2", price: 50, quantity: 3, sum: 150}
+                        ],
+                        total: 350
                     }
-                });
-                */
+                ];
+                this.renderHistory(transactions);
             }
 
-            
-            updateHistoryTable() {
-                const transactions = this.transactionManager.getTransactions();
-                const tbody = document.querySelector('#transactions-table tbody');
-                tbody.innerHTML = '';
-                
-                transactions.forEach(transaction => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${transaction.date}</td>
-                        <td>${transaction.description}</td>
-                        <td>${transaction.amount}</td>
-                        <td>${transaction.category}</td>
-                    `;
-                    tbody.appendChild(row);
-                });
+            renderHistory(transactions) {
+                const container = document.getElementById('history-container');
             }
         }
 
-        // Initialize the app when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            const app = new MyExpensesApp();
-            
-            // Handle browser back/forward
-            window.addEventListener('popstate', () => {
-                app.routeChange(window.location.pathname || '/');
-            });
-        });
+        new App();
     </script>
 </body>
 </html>
