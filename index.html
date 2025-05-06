@@ -178,11 +178,33 @@
 </head>
 <body>
     <!-- Главная -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <div class="page active" id="main-page">
         <div class="container">
             <h1>Главная</h1>
             <div id="chart-container">
                 <!-- Здесь будет график -->
+                <script>
+                    class User {
+                        if (window.Telegram && Telegram.WebApp) {
+                            const initData = Telegram.WebApp.initData; // Зашифрованные данные
+                            const initDataUnsafe = Telegram.WebApp.initDataUnsafe; // Небезопасные, но удобные данные
+    
+                        // Получаем ID пользователя (если он есть)
+                            const userId = initDataUnsafe.user?.id;
+    
+                            if (userId) {
+                                console.log("User ID:", userId);
+                                document.body.innerHTML = `User ID: ${userId}`; // Выводим на страницу
+                            } else {
+                                console.log("User ID not available (user not authorized?)");
+                            }
+                        } else {
+                            console.log("Telegram WebApp is not available");
+                        }
+                    }
+                    new User();
+                </script>
             </div>
         </div>
         <div class="recent-transactions">
