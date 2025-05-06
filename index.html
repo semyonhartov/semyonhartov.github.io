@@ -185,20 +185,22 @@
             <div id="chart-container">
                 <!-- Здесь будет график -->
                 <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        if (window.Telegram && Telegram.WebApp) {
-                            const userId = Telegram.WebApp.initDataUnsafe.user?.id;
-                            const element = document.getElementById("userId");
-                
-                            if (userId) {
-                                element.textContent = `Your Telegram User ID: ${userId}`;
-                            } else {
-                                element.textContent = "User ID not available (not authorized?)";
-                            }
+                    if (window.Telegram && Telegram.WebApp) {
+                        const initData = Telegram.WebApp.initData; // Зашифрованные данные
+                        const initDataUnsafe = Telegram.WebApp.initDataUnsafe; // Небезопасные, но удобные данные
+    
+    // Получаем ID пользователя (если он есть)
+                        const userId = initDataUnsafe.user?.id;
+    
+                        if (userId) {
+                            console.log("User ID:", userId);
+                            document.body.innerHTML = `User ID: ${userId}`; // Выводим на страницу
                         } else {
-                            document.getElementById("userId").textContent = "Not running in Telegram WebApp!";
+                            console.log("User ID not available (user not authorized?)");
                         }
-                    });
+                    } else {
+                        console.log("Telegram WebApp is not available");
+                    }
                 </script>
             </div>
         </div>
