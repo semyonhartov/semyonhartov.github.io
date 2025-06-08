@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Чек</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .form-horizontal {
+            margin: 2%;
+        }
+        form span {
+            background: #EFEFEF;
+            border: 1px solid #767676;
+            font-size: 0.9rem;
+            position: relative;
+            top: 5px;
+            padding: 0px 6px 3px;
+            cursor: pointer;
+            float: left;
+            margin-left: 5px;
+        }
+        .form-row::after,
+        input[type="submit"]::after {
+            content: "";
+            clear: both;
+            display: table;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <form class="form-horizontal">
+        <fieldset>
+            <legend>Receipt</legend>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="datetime">Date and Time</label>  
+                <div class="col-md-4">
+                    <input id="datetime" name="datetime" type="text" placeholder="28 March 21:30" class="form-control input-md" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="retailPlace">Retail place</label>  
+                <div class="col-md-4">
+                    <input id="retailPlace" name="retailPlace" type="text" placeholder="Пятёрочка" class="form-control input-md">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <h3>Item</h3>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="item1">Товар</label>  
+                    <div class="col-md-4">
+                        <input id="item1" name="item1" type="text" placeholder="Манная крупа" class="form-control input-md" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="price1">Цена</label>  
+                    <div class="col-md-4">
+                        <input id="price1" name="price1" type="text" placeholder="58.48" class="form-control input-md" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="quantity1">Количество</label>  
+                    <div class="col-md-4">
+                        <input id="quantity1" name="quantity1" type="number" value="1" min="1" max="100" class="form-control input-md">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Категория</label>  
+                    <div class="col-md-4">
+                        <select name="category" id="category" class="form-control">
+                            <option value="" selected>Выберите категорию</option>
+                        </select><br>
+                        <select name="subcategory" id="subcategory" class="form-control">
+                            <option value="" selected></option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline-primary" id="add-row">Добавить товар</button>
+                <button class="btn btn-outline-danger remove-row">Удалить</button>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button id="save-receipt" name="save-receipt" class="btn btn-primary">Сохранить чек</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+    <script>
+        const categories = {
+            "food": "Продукты",
+            "nonfood": "Товары",
+            "services": "Услуги",
+            "other": "Прочее"
+        };
+
+        const categoryObject = {
+            "food": {
+                "bread": "Хлебные продукты",
+                "cereals": "Крупы"
+            },
+            "nonfood": {
+                "medicines": "Лекарства"
+            },
+            "services": {
+                "utilities": "ЖКХ"
+            },
+            "other": {
+                "gifts": "Подарки"
+            }
+        };
+
+        window.onload = function() {
+            const categorySel = document.getElementById("category");
+            const subcategorySel = document.getElementById("subcategory");
+
+            for (const x in categoryObject) {
+                categorySel.options[categorySel.options.length] = new Option(categories[x], x);
+            }
+
+            categorySel.onchange = function() {
+                subcategorySel.length = 1;
+                for (const y in categoryObject[this.value]) {
+                    subcategorySel.options[subcategorySel.options.length] = new Option(categoryObject[this.value][y], y);
+                }
+            };
+        };
+
+        $(function() {
+            $('#add-row').click(function(e) {
+                e.preventDefault();
+                const $originalRow = $('.form-row:last');
+                const $newRow = $originalRow.clone();
+                const itemCount = $('.form-row').length + 1;
+
+                $newRow.find('input, select').each(function() {
+                    const $field = $(this);
+                    const oldId = $field.attr('id');
+                    const oldName = $field.attr('name');
+
+                    if (oldId) $field.attr('id', oldId.replace(/\d+$/, itemCount));
+                    if (oldName) $field.attr('name', oldName.replace(/\d+$/, itemCount));
+                    if ($field.attr('type') !== 'number') $field.val('');
+                    else $field.val('1');
+                });
+
+                $newRow.insertBefore($(this).parent());
+            });
+
+            $(document).on('click', '.remove-row', function(e) {
+                e.preventDefault();
+                if ($('.form-row').length > 1) {
+                    $(this).closest('.form-row').remove();
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#save-receipt').click(async function (e) {
+                e.preventDefault();
+
+                const formData = {
+                    dateTime: $('#datetime').val(),
+                    retailPlace: $('#retailPlace').val(),
+                    items: [],
+                    totalSum: 0
+                };
+
+                $('.form-row').each(function (index) {
+                    const itemNumber = index + 1;
+                    const itemName = $(`#item${itemNumber}`).val();
+                    const itemPrice = parseFloat($(`#price${itemNumber}`).val()) || 0;
+                    const itemQuantity = parseInt($(`#quantity${itemNumber}`).val()) || 1;
+                    const itemSum = itemPrice * itemQuantity;
+
+                    formData.items.push({
+                        name: itemName,
+                        price: itemPrice,
+                        quantity: itemQuantity,
+                        sum: itemSum
+                    });
+
+                    formData.totalSum += itemSum;
+                });
+
+                try {
+                    const response = await fetch('/save-receipt', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    if (response.ok) {
+                        alert('Чек успешно сохранён!');
+                    } else {
+                        alert('Ошибка при сохранении чека');
+                    }
+                } catch (err) {
+                    alert('Ошибка соединения с сервером: ' + err.message);
+                    console.error(err);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
