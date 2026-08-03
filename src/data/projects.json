@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Этот сайт",
+    "description": "Личный сайт-портфолио на Astro + Material Web (MD3) с динамическим акцентным цветом из обоев и сезонными фонами.",
+    "tags": ["Astro", "TypeScript", "Material Web", "MD3", "Vibecoded"],
+    "repo": "https://github.com/semyonhartov/semyonhartov.github.io",
+    "demo": null,
+    "status": "in-progress",
+    "icon": "language",
+    "year": 2026
+  }
+]
