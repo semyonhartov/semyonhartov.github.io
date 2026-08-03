@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import projects from '../data/projects.json';
+
+const statuses = [
+  { key: 'all', label: 'Все' },
+  { key: 'in-progress', label: 'В работе' },
+  { key: 'completed', label: 'Завершён' },
+  { key: 'archived', label: 'Архив' },
+] as const;
+---
+
+<BaseLayout
+  title="Проекты"
+  description="Проекты Семёна Хартова: репозитории, демо и стек."
+>
+  <header class="page-head">
+    <h1 class="page-title">Проекты</h1>
+    <p class="page-subtitle">
+      Что я делаю и делал..
+    </p>
+  </header>
+
+  <div class="filter-row" role="group" aria-label="Фильтр по статусу">
+    {
+      statuses.map((s) => (
+        <md-filter-chip
+          label={s.label}
+          selected={s.key === 'all'}
+          data-status-filter={s.key}
+          type="single"
+        ></md-filter-chip>
+      ))
+    }
+  </div>
+
+  <div class="grid" id="projects-grid" data-filter-target>
+    {projects.map((p) => (
+      <div data-project-card data-status={p.status}>
+        <ProjectCard project={p} />
+      </div>
+    ))}
+  </div>
+
+  <script>
+    import type { MdFilterChip } from '@material/web/chips/filter-chip.js';
+
+    const chips = Array.from(document.querySelectorAll('md-filter-chip[data-status-filter]')) as MdFilterChip[];
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-project-card]'));
+    const grid = document.getElementById('projects-grid');
+
+    const applyFilter = (active: string) => {
+      cards.forEach((card) => {
+        const show = active === 'all' || card.dataset.status === active;
+        card.hidden = !show;
+      });
+      if (grid) grid.style.display = 'none';
+      requestAnimationFrame(() => {
+        if (grid) grid.style.display = '';
+      });
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => (c.selected = c === chip));
+        applyFilter(chip.dataset.statusFilter ?? 'all');
+      });
+    });
+  </script>
+</BaseLayout>

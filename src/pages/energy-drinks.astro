@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import drinks from '../data/drinks.json';
+
+const total = drinks.length;
+const best = drinks[0];
+---
+
+<BaseLayout
+  title="Энергетики"
+  description={`Рейтинг обзоров энергетиков: ${total} напитков от Семёна Хартова. Таблица с сортировкой и двумя шкалами оценки.`}
+>
+  <header class="page-head">
+    <h1 class="page-title">Рейтинг энергетиков</h1>
+    <p class="page-subtitle">
+      Обозрено {total} напитков. Лучший по Литэнерджи-шкале — {best.brand} «{best.name}»
+      ({best.rating}).
+    </p>
+  </header>
+
+  <div class="table-tools">
+    <div class="scale-switch">
+      <md-switch id="scale-toggle" aria-label="Переключить шкалу оценки"></md-switch>
+      <span id="scale-label">Литэнерджи (меньше = лучше)</span>
+    </div>
+    <span class="tag" style="margin-left: auto;">
+      <md-icon style="--md-icon-size: 16px;">swap_vert</md-icon>
+      Нажмите на заголовок, чтобы сортировать
+    </span>
+  </div>
+
+  <md-elevated-card class="table-card">
+    <table class="ratings-table" id="ratings-table">
+      <thead>
+        <tr>
+          <th data-col="brand" scope="col" tabindex="0">
+            Бренд <span class="sort-arrow" aria-hidden="true">▲</span>
+          </th>
+          <th data-col="name" scope="col" tabindex="0">
+            Название <span class="sort-arrow" aria-hidden="true">▲</span>
+          </th>
+          <th data-col="rating" scope="col" tabindex="0">
+            Оценка из 10 <span class="sort-arrow" aria-hidden="true">▲</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          drinks.map((d) => (
+            <tr data-brand={d.brand} data-name={d.name} data-rating={d.rating}>
+              <td class="brand-cell">{d.brand}</td>
+              <td>
+                <a class="drink-link" href={d.url} target="_blank" rel="noopener">
+                  {d.name}
+                  <span class="drink-thumb" role="presentation">
+                    {d.image ? (
+                      <img
+                        src={d.image}
+                        alt={`${d.brand} ${d.name}`}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <span class="empty-cell">Фото нет</span>
+                    )}
+                  </span>
+                </a>
+              </td>
+              <td data-rating-cell data-note={d.note ?? undefined}>
+                <span class="rating-num">{d.rating}</span>
+                {d.note && <span class="rating-note"> {d.note}</span>}
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </md-elevated-card>
+
+  <script>
+    import { initDrinksTable } from '../scripts/drinks';
+    initDrinksTable();
+  </script>
+</BaseLayout>

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Telegram",
+    "username": "@semyonhartov",
+    "url": "https://t.me/semyonhartov",
+    "description": "Мой ТГ",
+    "icon": "telegram",
+    "color": "#26A5E4"
+  },
+  {
+    "name": "Telegram-канал",
+    "username": "@mybgstrat",
+    "url": "https://t.me/mybgstrat",
+    "description": "Щитпост канал, обзоры энергетиков",
+    "icon": "telegram",
+    "color": "#26A5E4"
+  },
+  {
+    "name": "GitHub",
+    "username": "semyonhartov",
+    "url": "https://github.com/semyonhartov",
+    "description": "Мои проекты лежат здесь",
+    "icon": "github",
+    "color": "#181717"
+  },
+  {
+    "name": "Плейлист канала",
+    "username": "semyonhartov",
+    "url": "https://music.yandex.ru/users/semyonhartov/playlists/1044",
+    "description": "Плейлист со всей музыкой, что я отправлял в @mybgstrat",
+    "icon": "yandex-music",
+    "color": "#FFCC00"
+  },
+  {
+    "name": "Плейлист «Танцы по винилу»",
+    "username": "Яндекс Музыка",
+    "url": "https://music.yandex.ru/playlists/7826d2cd-e4eb-945f-bc83-426d4f2291d3",
+    "description": "",
+    "icon": "vinyl",
+    "color": "#FFCC00"
+  },
+  {
+    "name": "YouTube",
+    "username": "semyonhartov",
+    "url": "https://youtube.com/@semyonhartov",
+    "description": "Пока ещё основной канал на Ютубе",
+    "icon": "youtube",
+    "color": "#FF0000"
+  },
+  {
+    "name": "YouTube",
+    "username": "hartovcringe",
+    "url": "https://youtube.com/@hartovcringe",
+    "description": "Второй щитпост канал на Ютубе",
+    "icon": "youtube",
+    "color": "#FF0000"
+  },
+  {
+    "name": "ВКонтакте",
+    "username": "semyonhartov",
+    "url": "https://vk.com/semyonhartov",
+    "description": "Страница (малоактивна)",
+    "icon": "vk",
+    "color": "#0077FF"
+  },
+  {
+    "name": "Почта",
+    "username": "cemehovyt@gmail.com",
+    "url": "mailto:cemehovyt@gmail.com",
+    "description": "По рабочим вопросам",
+    "icon": "email",
+    "color": "#EA4335"
+  }
+]

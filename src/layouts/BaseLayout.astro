@@ -1,0 +1,169 @@
+---
+import '../styles/global.css';
+import { SITE, NAV_ITEMS } from '../data/site';
+import { buildWallpaperManifest } from '../data/wallpapers';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  ogImage = `${SITE.url}/assets/og-image.jpg`,
+  ogType = 'website',
+} = Astro.props;
+
+const pageTitle = title === SITE.title ? `${SITE.title} — ${SITE.tagline}` : `${title} — ${SITE.title}`;
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const manifest = buildWallpaperManifest();
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.author} />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Мгновенная установка темы до отрисовки (без FOUC) -->
+    <script is:inline>
+      (() => {
+        try {
+          var stored = localStorage.getItem('theme-preference');
+          var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored === 'light' || stored === 'dark' ? stored : stored === 'system' || !stored ? (dark ? 'dark' : 'light') : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- OpenGraph / соцсети -->
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#fbfcfe" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#191c1e" media="(prefers-color-scheme: dark)" />
+
+    <!-- Шрифты -->
+    <style>
+      @font-face {
+        font-family: 'Material Symbols Rounded';
+        font-style: normal;
+        font-weight: 100 700;
+        src: url('/fonts/material-symbols-rounded.woff2') format('woff2');
+        font-display: block;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..700&display=swap"
+    />
+  </head>
+
+  <body>
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="header-inner">
+          <a class="brand" href="/" aria-label={`${SITE.title} — на главную`}>
+            <span class="brand-logo" aria-hidden="true">SH</span>
+            <span>{SITE.title}</span>
+          </a>
+
+          <nav class="site-nav" aria-label="Основная навигация">
+            {
+              NAV_ITEMS.map((item) => (
+                <a
+                  href={item.href}
+                  aria-current={currentPath === item.href ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              ))
+            }
+          </nav>
+
+          <md-icon-button id="theme-toggle" aria-label="Переключить тему">
+            <md-icon>brightness_auto</md-icon>
+          </md-icon-button>
+        </div>
+      </header>
+
+      <main class="site-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-links">
+          <a href={SITE.telegram} target="_blank" rel="noopener">Telegram-канал</a>
+          <a href={SITE.github} target="_blank" rel="noopener">GitHub</a>
+          <a href={`mailto:${SITE.email}`}>Почта</a>
+        </div>
+        <p style="margin: 0">© {new Date().getFullYear()} {SITE.author} · Собрано на Astro + Material Web</p>
+      </footer>
+    </div>
+
+    <!-- Мобильная навигация (MD3 Navigation Bar) -->
+    <md-navigation-bar
+      id="mobile-nav"
+      class="mobile-nav"
+      active-index={Math.max(0, NAV_ITEMS.findIndex((i) => i.href === currentPath))}
+      aria-label="Мобильная навигация"
+    >
+      {
+        NAV_ITEMS.map((item) => (
+          <md-navigation-tab
+            label={item.label}
+            href={item.href}
+            active={currentPath === item.href}
+          >
+            <md-icon slot="active-icon">{item.icon}</md-icon>
+            <md-icon slot="inactive-icon">{item.icon}</md-icon>
+          </md-navigation-tab>
+        ))
+      }
+    </md-navigation-bar>
+
+    <div id="wallpaper-manifest" hidden data-manifest={JSON.stringify(manifest)}></div>
+
+    <script>
+      import { initBackground } from '../scripts/background';
+      import { initThemeToggle, initDynamicColor } from '../scripts/theme';
+
+      initBackground();
+      initDynamicColor();
+      initThemeToggle();
+    </script>
+    <script>
+      import '../scripts/md3';
+      import { initMobileNav } from '../scripts/nav';
+      initMobileNav();
+    </script>
+  </body>
+</html>

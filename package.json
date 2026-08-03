@@ -1,0 +1,24 @@
+{
+  "name": "semyonhartov.github.io",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@material/material-color-utilities": "^0.2.7",
+    "@material/web": "^2.4.0",
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/node": "^26.1.2",
+    "typescript": "^5.6.0"
+  }
+}

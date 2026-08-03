@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { NAV_ITEMS, SITE } from '../data/site';
+
+const sectionCards = NAV_ITEMS.filter((i) => i.href !== '/');
+
+const skills = ['C++', 'Python', 'Linux'];
+---
+
+<BaseLayout
+  title={SITE.title}
+  description={SITE.description}
+>
+  <section class="hero">
+    <h1 class="page-title">Привет, я {SITE.author}</h1>
+    <p class="lead">
+      Люблю музыку, контент и занимаюсь программированием. Пытаюсь вести щитпост тг, иногда пишу код и пытаюсь исполнить все задумки из своей головы (чаще всего, проекты держатся на нейронке, т.к. я ненавижу веб). 
+      Учусь в Алтайском Государственном Университете на 4-ом курсе по направлению Фундаментальная информатика и информационные технологии.
+    </p>
+    <div class="hero-actions">
+      <md-filled-button href={SITE.telegram} target="_blank" rel="noopener">
+        <md-icon slot="icon">send</md-icon>
+        Написать в Telegram
+      </md-filled-button>
+      <md-filled-tonal-button href={`mailto:${SITE.email}`}>
+        <md-icon slot="icon">mail</md-icon>
+        Написать письмо
+      </md-filled-tonal-button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">
+      <md-icon>person</md-icon>
+      Обо мне
+    </h2>
+    <md-elevated-card>
+      <div class="card-body">
+        <p style="margin-bottom: 12px">
+          Меня зовут {SITE.author}. Мне интересны программирование (C++, Python, SQL), работа с фото и видео, а также хороший звук. Делюсь обзорами энергетиков в телеграм-канале, а здесь собираю портфолио, творчество и свой сетап в одном месте.
+        </p>
+        <div class="skill-row">
+          {skills.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </div>
+    </md-elevated-card>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">
+      <md-icon>explore</md-icon>
+      Разделы сайта
+    </h2>
+    <div class="grid">
+      {
+        sectionCards.map((item) => (
+          <md-elevated-card>
+            <a class="nav-card" href={item.href}>
+              <div class="card-body">
+                <div class="nav-card-top">
+                  <md-icon>{item.icon}</md-icon>
+                  <md-icon class="nav-card-arrow">arrow_forward</md-icon>
+                </div>
+                <h3 style="margin: 0">{item.label}</h3>
+                <p style="color: var(--md-sys-color-on-surface-variant); margin: 0">
+                  {item.description}
+                </p>
+              </div>
+            </a>
+          </md-elevated-card>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">
+      <md-icon>call</md-icon>
+      Быстрый контакт
+    </h2>
+    <md-outlined-card>
+      <div class="card-body" style="flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 16px;">
+        <div>
+          <h3 style="margin: 0 0 4px">Обсудить идею или проект?</h3>
+          <p style="color: var(--md-sys-color-on-surface-variant); margin: 0">
+            Напишите мне — отвечу в телеграме или на почту.
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <md-filled-button href={SITE.telegram} target="_blank" rel="noopener">
+            <md-icon slot="icon">send</md-icon>
+            Telegram
+          </md-filled-button>
+          <md-outlined-button href={`mailto:${SITE.email}`}>
+            <md-icon slot="icon">alternate_email</md-icon>
+            {SITE.email}
+          </md-outlined-button>
+        </div>
+      </div>
+    </md-outlined-card>
+  </section>
+</BaseLayout>

@@ -1,0 +1,86 @@
+---
+interface Media {
+  type: 'video' | 'music' | 'audio' | 'other';
+  title: string;
+  description?: string;
+  provider?: string;
+  embed?: string;
+  audio?: string;
+  cover?: string;
+  url?: string;
+  year?: number;
+}
+
+const { media } = Astro.props as { media: Media };
+---
+
+<md-elevated-card>
+  <div class="card-body">
+    {
+      media.type === 'video' && media.embed && (
+        <div class="cover-wrap" style="aspect-ratio: 16/9;">
+          <iframe
+            class="media-frame"
+            src={media.embed}
+            title={media.title}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      )
+    }
+
+    {
+      media.type === 'audio' && media.audio && (
+        <div class="cover-wrap" style="aspect-ratio: 16/9; background: var(--md-sys-color-surface-container-high); display: flex; align-items: center; justify-content: center;">
+          <md-icon style="font-size: 64px; color: var(--md-sys-color-primary);">graphic_eq</md-icon>
+        </div>
+      )
+    }
+
+    {
+      (media.type === 'music' || media.type === 'other') && media.cover && (
+        <div class="cover-wrap">
+          <img src={media.cover} alt={media.title} loading="lazy" decoding="async" />
+        </div>
+      )
+    }
+
+    <h3 style="margin: 0">{media.title}</h3>
+
+    {
+      media.provider && (
+        <span class="tag">
+          <md-icon style="--md-icon-size: 16px;">tag</md-icon>
+          {media.provider}
+        </span>
+      )
+    }
+
+    {
+      media.description && (
+        <p style="color: var(--md-sys-color-on-surface-variant); margin: 0; flex: 1;">
+          {media.description}
+        </p>
+      )
+    }
+
+    {
+      media.type === 'audio' && media.audio && (
+        <audio controls preload="none" src={media.audio} style="width: 100%; margin-top: auto;"></audio>
+      )
+    }
+
+    {
+      media.url && (
+        <div class="card-actions">
+          <md-filled-tonal-button href={media.url} target="_blank" rel="noopener">
+            <md-icon slot="icon">open_in_new</md-icon>
+            Открыть
+          </md-filled-tonal-button>
+        </div>
+      )
+    }
+  </div>
+</md-elevated-card>

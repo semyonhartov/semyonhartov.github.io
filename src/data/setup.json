@@ -1,0 +1,41 @@
+[
+  {
+    "category": "ПК · Hardware",
+    "icon": "memory",
+    "items": [
+      { "label": "Процессор", "value": "AMD Ryzen 5 2600" },
+      { "label": "Видеокарта", "value": "Sapphire Radeon RX 580 Nitro+ 8gb" },
+      { "label": "Оперативная память", "value": "Patriot Viper 2x8gb 3200 MHz" },
+      { "label": "Накопители", "value": "GIGABYTE Gen4 4000E 1TB · Kingston A400 480GB" },
+      { "label": "Материнская плата", "value": "MSI X470 Gaming Plus" },
+      { "label": "Блок питания", "value": "Thermaltake Smart BX1 750W" },
+      { "label": "Корпус / охлаждение", "value": "DeepCool KENDOMEN" }
+    ]
+  },
+  {
+    "category": "Периферия",
+    "icon": "keyboard",
+    "items": [
+      { "label": "Основной монитор", "value": "AOC 24G4XE (FHD 180Hz)" },
+      { "label": "Второй монитор", "value": "AOC i2276VWm (FHD 60Hz)" },
+      { "label": "Клавиатура", "value": "AULA F87 PRO + Outemu Silent Lemon/Lime v3" },
+      { "label": "Мышь", "value": "EWEADN S9 Max" },
+      { "label": "Наушники", "value": "Samson SR850" },
+      { "label": "Микрофон", "value": "BM800" },
+      { "label": "Аудиокарта", "value": "Behringer U-Phoria UM2" },
+      { "label": "Веб-камера", "value": "Fifine K420" }
+    ]
+  },
+  {
+    "category": "Софт / Окружение",
+    "icon": "terminal",
+    "items": [
+      { "label": "Основная ОС", "value": "CachyOS" },
+      { "label": "Вторая ОС", "value": "Windows 11 LTSC" },
+      { "label": "Оконный менеджер / оболочка", "value": "Niri + Noctalia" },
+      { "label": "Редактор", "value": "Sublime Text" },
+      { "label": "Терминал", "value": "Alacritty+Kitty (CachyOS Default)" },
+      { "label": "Инструментарий", "value": "Git · Docker" }
+    ]
+  }
+]

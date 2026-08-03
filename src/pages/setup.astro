@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import setup from '../data/setup.json';
+---
+
+<BaseLayout
+  title="Сетап"
+  description="Техника и окружение: ПК, периферия и софт."
+>
+  <header class="page-head">
+    <h1 class="page-title">Техника / Сетап</h1>
+    <p class="page-subtitle">
+      Что у меня под рукой: железо, периферия и рабочее окружение. 
+    </p>
+  </header>
+
+  <div class="setup-list">
+    {
+      setup.map((cat) => (
+        <md-elevated-card>
+          <div class="card-body setup-card">
+            <div class="setup-head">
+              <md-icon class="setup-head-icon" aria-hidden="true">{cat.icon}</md-icon>
+              <h2>{cat.category}</h2>
+            </div>
+            <div class="setup-items">
+              {
+                cat.items.map((item) => (
+                  <div class="setup-item">
+                    <div class="setup-item-label">{item.label}</div>
+                    <div class="setup-item-value">{item.value}</div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </md-elevated-card>
+      ))
+    }
+  </div>
+
+  <style>
+    .setup-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .setup-card {
+      padding: 8px 8px 20px;
+    }
+
+    .setup-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px 8px;
+    }
+
+    .setup-head-icon {
+      color: var(--md-sys-color-primary);
+    }
+
+    .setup-head h2 {
+      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    .setup-items {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 16px 24px;
+      padding: 8px 16px 0;
+    }
+
+    .setup-item {
+      flex: 1 1 200px;
+      min-width: 160px;
+    }
+
+    .setup-item-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .setup-item-value {
+      margin-top: 2px;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .setup-list > * {
+      animation: rise-in 0.5s ease both;
+    }
+    .setup-list > *:nth-child(2) { animation-delay: 0.05s; }
+    .setup-list > *:nth-child(3) { animation-delay: 0.1s; }
+  </style>
+</BaseLayout>

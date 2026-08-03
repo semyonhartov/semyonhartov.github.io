@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 — страница не найдена"
+  description="Страница не найдена на сайте Семёна Хартова."
+>
+  <header class="page-head" style="text-align: center; padding-top: 8vh;">
+    <h1 class="page-title" style="font-size: clamp(3rem, 12vw, 6rem);">404</h1>
+    <p class="page-subtitle" style="margin: 0 auto 24px;">
+      Такой страницы нет — возможно, ссылка устарела.
+    </p>
+    <div class="hero-actions" style="justify-content: center;">
+      <md-filled-button href="/">
+        <md-icon slot="icon">home</md-icon>
+        На главную
+      </md-filled-button>
+      <md-outlined-button href="/energy-drinks">
+        <md-icon slot="icon">bolt</md-icon>
+        К рейтингу энергетиков
+      </md-outlined-button>
+    </div>
+  </header>
+</BaseLayout>

@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MediaCard from '../components/MediaCard.astro';
+import creativity from '../data/creativity.json';
+
+const categories = [
+  { key: 'all', label: 'Все', icon: 'grid_view' },
+  { key: 'video', label: 'Видео', icon: 'videocam' },
+  { key: 'music', label: 'Музыка', icon: 'music_note' },
+  { key: 'audio', label: 'Аудио', icon: 'podcasts' },
+  { key: 'other', label: 'Другое', icon: 'auto_awesome' },
+] as const;
+
+const typeToFilter: Record<string, string> = {
+  video: 'video',
+  music: 'music',
+  audio: 'audio',
+  other: 'other',
+};
+---
+
+<BaseLayout
+  title="Творчество"
+  description="Медиа-контент Семёна Хартова: видео, музыка и другие проекты. Данные в src/data/creativity.json."
+>
+  <header class="page-head">
+    <h1 class="page-title">Творчество</h1>
+    <p class="page-subtitle">
+      Видео, музыка и медиа-проекты. Медиа загружается лениво — только когда доскроллите до карточки.
+    </p>
+  </header>
+
+  <div class="filter-row" role="group" aria-label="Фильтр по категории">
+    {
+      categories.map((c) => (
+        <md-filter-chip
+          label={c.label}
+          selected={c.key === 'all'}
+          data-category={c.key}
+          type="single"
+        >
+          {c.icon && <md-icon slot="icon">{c.icon}</md-icon>}
+        </md-filter-chip>
+      ))
+    }
+  </div>
+
+  <div class="grid" id="creativity-grid">
+    {creativity.map((m) => (
+      <div data-media-card data-category={typeToFilter[m.type] ?? 'other'}>
+        <MediaCard media={m} />
+      </div>
+    ))}
+  </div>
+
+  <script>
+    import type { MdFilterChip } from '@material/web/chips/filter-chip.js';
+
+    const chips = Array.from(document.querySelectorAll('md-filter-chip[data-category]')) as MdFilterChip[];
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-media-card]'));
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => (c.selected = c === chip));
+        const active = chip.dataset.category ?? 'all';
+        cards.forEach((card) => {
+          card.hidden = active !== 'all' && card.dataset.category !== active;
+        });
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,16 @@
+{
+  "name": "Семён Хартов — Портфолио",
+  "short_name": "Хартов",
+  "description": "Личный сайт Семёна Хартова: проекты, творчество, техника и рейтинг энергетиков.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#191c1e",
+  "theme_color": "#191c1e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

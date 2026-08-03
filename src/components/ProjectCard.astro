@@ -1,0 +1,76 @@
+---
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  repo?: string | null;
+  demo?: string | null;
+  status: 'in-progress' | 'completed' | 'archived';
+  icon?: string;
+  year?: number;
+  image?: string | null;
+}
+
+const { project } = Astro.props as { project: Project };
+
+const statusLabels: Record<Project['status'], string> = {
+  'in-progress': 'В работе',
+  completed: 'Завершён',
+  archived: 'Архив',
+};
+---
+
+<md-elevated-card>
+  <div class="card-body">
+    {
+      project.image && (
+        <div class="cover-wrap" style="aspect-ratio: 16/9;">
+          <img src={project.image} alt={project.title} loading="lazy" decoding="async" />
+        </div>
+      )
+    }
+
+    <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
+      <h3 style="display: inline-flex; align-items: center; gap: 8px; margin: 0;">
+        {project.icon && <md-icon style="color: var(--md-sys-color-primary);">{project.icon}</md-icon>}
+        {project.title}
+      </h3>
+      {
+        project.year && (
+          <span style="color: var(--md-sys-color-on-surface-variant); font-size: .85rem; white-space: nowrap;">
+            {project.year}
+          </span>
+        )
+      }
+    </div>
+
+    <span class="status-chip" data-status={project.status}>{statusLabels[project.status]}</span>
+
+    <p style="color: var(--md-sys-color-on-surface-variant); margin: 0; flex: 1;">
+      {project.description}
+    </p>
+
+    <div class="chip-row">
+      {project.tags.map((t) => <span class="tag">{t}</span>)}
+    </div>
+
+    <div class="card-actions">
+      {
+        project.repo && (
+          <md-outlined-button href={project.repo} target="_blank" rel="noopener">
+            <md-icon slot="icon">code</md-icon>
+            Репозиторий
+          </md-outlined-button>
+        )
+      }
+      {
+        project.demo && (
+          <md-filled-tonal-button href={project.demo} target="_blank" rel="noopener">
+            <md-icon slot="icon">open_in_new</md-icon>
+            Демо
+          </md-filled-tonal-button>
+        )
+      }
+    </div>
+  </div>
+</md-elevated-card>

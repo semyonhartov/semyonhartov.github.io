@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PlatformIcon from '../components/PlatformIcon.astro';
+import platforms from '../data/platforms.json';
+---
+
+<BaseLayout
+  title="Платформы"
+  description="Где найти Семёна Хартова: соцсети, музыкальные сервисы и мессенджеры. Данные в src/data/platforms.json."
+>
+  <header class="page-head">
+    <h1 class="page-title">Платформы</h1>
+    <p class="page-subtitle">
+      Все площадки, где я есть. Ссылки открываются в новой вкладке.
+    </p>
+  </header>
+
+  <div class="grid-2">
+    <md-elevated-card style="grid-column: 1 / -1;">
+      <div class="card-body" style="padding: 8px;">
+        <md-list>
+          {
+            platforms.map((p) => (
+              <md-list-item
+                href={p.url}
+                target="_blank"
+                rel="noopener"
+                style="--md-list-item-one-line-container-height: 72px;"
+              >
+                <div slot="start" class="platform-icon" style={`background: ${p.color}1a; color: ${p.color};`}>
+                  <PlatformIcon name={p.icon} size={26} />
+                </div>
+                <span slot="headline">{p.name}</span>
+                <span slot="supporting-text">
+                  {p.username}
+                  {p.description ? ` · ${p.description}` : ''}
+                </span>
+                <md-icon slot="end">open_in_new</md-icon>
+              </md-list-item>
+            ))
+          }
+        </md-list>
+      </div>
+    </md-elevated-card>
+  </div>
+
+  <style>
+    .platform-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</BaseLayout>
