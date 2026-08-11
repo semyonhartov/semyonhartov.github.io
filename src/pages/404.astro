@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
 
 <BaseLayout
@@ -13,11 +14,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </p>
     <div class="hero-actions" style="justify-content: center;">
       <md-filled-button href="/">
-        <md-icon slot="icon">home</md-icon>
+        <Icon name="home" slot="icon" />
         На главную
       </md-filled-button>
       <md-outlined-button href="/energy-drinks">
-        <md-icon slot="icon">bolt</md-icon>
+        <Icon name="bolt" slot="icon" />
         К рейтингу энергетиков
       </md-outlined-button>
     </div>

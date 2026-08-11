@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlatformIcon from '../components/PlatformIcon.astro';
+import Icon from '../components/Icon.astro';
 import platforms from '../data/platforms.json';
 ---
 
@@ -28,14 +28,14 @@ import platforms from '../data/platforms.json';
                 style="--md-list-item-one-line-container-height: 72px;"
               >
                 <div slot="start" class="platform-icon" style={`background: ${p.color}1a; color: ${p.color};`}>
-                  <PlatformIcon name={p.icon} size={26} />
+                  <Icon name={p.icon} size={26} />
                 </div>
                 <span slot="headline">{p.name}</span>
                 <span slot="supporting-text">
                   {p.username}
                   {p.description ? ` · ${p.description}` : ''}
                 </span>
-                <md-icon slot="end">open_in_new</md-icon>
+                <Icon name="open_in_new" slot="end" />
               </md-list-item>
             ))
           }

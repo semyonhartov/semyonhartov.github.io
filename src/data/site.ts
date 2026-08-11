@@ -13,7 +13,7 @@ export const SITE = {
     'Сайт-портфолио для моих проектов.',
   url: 'https://semyonhartov.github.io',
   author: 'Семён Хартов',
-  email: 'cemehovyt@gmail.com',
+  email: 'semyonhartov@gmail.com',
   telegram: 'https://t.me/semyonhartov',
   github: 'https://github.com/semyonhartov',
 } as const;

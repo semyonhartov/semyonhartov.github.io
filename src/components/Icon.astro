@@ -1,0 +1,32 @@
+---
+import { ICONS } from '../data/icons';
+
+interface Props {
+  name: string;
+  size?: number;
+  label?: string;
+  class?: string;
+  slot?: string;
+}
+
+const { name, size = 24, label, ...attrs } = Astro.props;
+const def = ICONS[name];
+---
+
+{
+  def && (
+    <svg
+      {...attrs}
+      viewBox={def.viewBox ?? '0 0 24 24'}
+      width={size}
+      height={size}
+      fill="currentColor"
+      role={label ? 'img' : undefined}
+      aria-hidden={label ? undefined : 'true'}
+      aria-label={label}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d={def.path} transform={def.transform} />
+    </svg>
+  )
+}

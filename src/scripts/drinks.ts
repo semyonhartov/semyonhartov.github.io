@@ -34,9 +34,73 @@ function ratingDirection(): 1 | -1 {
   return 1;
 }
 
+function initDrinkPreviews(): void {
+  const links = Array.from(document.querySelectorAll<HTMLElement>('.drink-link'));
+  if (!links.length) return;
+
+  const popup = document.createElement('div');
+  popup.className = 'drink-popup';
+  popup.setAttribute('role', 'presentation');
+  document.body.appendChild(popup);
+
+  const show = (link: HTMLElement): void => {
+    const img = link.querySelector<HTMLImageElement>('.drink-thumb img');
+    const placeholder = link.querySelector<HTMLElement>('.drink-thumb .empty-cell');
+    if (!img && !placeholder) return;
+
+    popup.innerHTML = '';
+    const frame = document.createElement('div');
+    frame.className = 'drink-popup-frame';
+    if (img) {
+      const clone = img.cloneNode(true) as HTMLImageElement;
+      clone.removeAttribute('loading');
+      frame.appendChild(clone);
+    } else if (placeholder) {
+      frame.appendChild(placeholder.cloneNode(true));
+    }
+    popup.appendChild(frame);
+
+    const rect = link.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const POPUP_W = 150;
+    const GAP = 10;
+    const margin = 12;
+
+    let left = rect.left + rect.width / 2 - POPUP_W / 2;
+    left = Math.max(margin, Math.min(left+50, vw - POPUP_W - margin));
+
+    popup.style.left = left + 'px';
+    popup.style.top = '-9999px';
+    popup.style.opacity = '0';
+    const h = popup.offsetHeight;
+
+    let top = rect.top - GAP - h;
+    if (top < margin) {
+      top = rect.bottom + GAP;
+      if (top + h > vh - margin) top = Math.max(margin, vh - h - margin);
+    }
+    popup.style.top = top + 'px';
+    popup.style.opacity = '1';
+  };
+
+  const hide = (): void => {
+    popup.style.opacity = '0';
+  };
+
+  links.forEach((link) => {
+    link.addEventListener('mouseenter', () => show(link));
+    link.addEventListener('mouseleave', hide);
+    link.addEventListener('focus', () => show(link));
+    link.addEventListener('blur', hide);
+  });
+}
+
 export function initDrinksTable(): void {
   const table = document.querySelector<HTMLTableElement>('#ratings-table');
   if (!table) return;
+
+  initDrinkPreviews();
 
   const tbody = table.tBodies[0];
   if (!tbody) return;

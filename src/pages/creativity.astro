@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import MediaCard from '../components/MediaCard.astro';
 import creativity from '../data/creativity.json';
 
@@ -39,7 +40,7 @@ const typeToFilter: Record<string, string> = {
           data-category={c.key}
           type="single"
         >
-          {c.icon && <md-icon slot="icon">{c.icon}</md-icon>}
+          {c.icon && <Icon name={c.icon} slot="icon" />}
         </md-filter-chip>
       ))
     }

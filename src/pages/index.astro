@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { NAV_ITEMS, SITE } from '../data/site';
 
 const sectionCards = NAV_ITEMS.filter((i) => i.href !== '/');
@@ -19,11 +20,11 @@ const skills = ['C++', 'Python', 'Linux'];
     </p>
     <div class="hero-actions">
       <md-filled-button href={SITE.telegram} target="_blank" rel="noopener">
-        <md-icon slot="icon">send</md-icon>
+        <Icon name="send" slot="icon" />
         Написать в Telegram
       </md-filled-button>
       <md-filled-tonal-button href={`mailto:${SITE.email}`}>
-        <md-icon slot="icon">mail</md-icon>
+        <Icon name="mail" slot="icon" />
         Написать письмо
       </md-filled-tonal-button>
     </div>
@@ -31,7 +32,7 @@ const skills = ['C++', 'Python', 'Linux'];
 
   <section class="section">
     <h2 class="section-title">
-      <md-icon>person</md-icon>
+      <Icon name="person" />
       Обо мне
     </h2>
     <md-elevated-card>
@@ -48,7 +49,7 @@ const skills = ['C++', 'Python', 'Linux'];
 
   <section class="section">
     <h2 class="section-title">
-      <md-icon>explore</md-icon>
+      <Icon name="explore" />
       Разделы сайта
     </h2>
     <div class="grid">
@@ -58,8 +59,8 @@ const skills = ['C++', 'Python', 'Linux'];
             <a class="nav-card" href={item.href}>
               <div class="card-body">
                 <div class="nav-card-top">
-                  <md-icon>{item.icon}</md-icon>
-                  <md-icon class="nav-card-arrow">arrow_forward</md-icon>
+                  <Icon name={item.icon} />
+                  <Icon name="arrow_forward" class="nav-card-arrow" />
                 </div>
                 <h3 style="margin: 0">{item.label}</h3>
                 <p style="color: var(--md-sys-color-on-surface-variant); margin: 0">
@@ -75,7 +76,7 @@ const skills = ['C++', 'Python', 'Linux'];
 
   <section class="section">
     <h2 class="section-title">
-      <md-icon>call</md-icon>
+      <Icon name="call" />
       Быстрый контакт
     </h2>
     <md-outlined-card>
@@ -88,11 +89,11 @@ const skills = ['C++', 'Python', 'Linux'];
         </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <md-filled-button href={SITE.telegram} target="_blank" rel="noopener">
-            <md-icon slot="icon">send</md-icon>
+            <Icon name="send" slot="icon" />
             Telegram
           </md-filled-button>
           <md-outlined-button href={`mailto:${SITE.email}`}>
-            <md-icon slot="icon">alternate_email</md-icon>
+            <Icon name="alternate_email" slot="icon" />
             {SITE.email}
           </md-outlined-button>
         </div>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import drinks from '../data/drinks.json';
 
 const total = drinks.length;
@@ -24,13 +25,14 @@ const best = drinks[0];
       <span id="scale-label">Литэнерджи (меньше = лучше)</span>
     </div>
     <span class="tag" style="margin-left: auto;">
-      <md-icon style="--md-icon-size: 16px;">swap_vert</md-icon>
+      <Icon name="swap_vert" size={16} />
       Нажмите на заголовок, чтобы сортировать
     </span>
   </div>
 
   <md-elevated-card class="table-card">
-    <table class="ratings-table" id="ratings-table">
+    <div class="table-scroll">
+      <table class="ratings-table" id="ratings-table">
       <thead>
         <tr>
           <th data-col="brand" scope="col" tabindex="0">
@@ -74,7 +76,8 @@ const best = drinks[0];
           ))
         }
       </tbody>
-    </table>
+      </table>
+    </div>
   </md-elevated-card>
 
   <script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import setup from '../data/setup.json';
 ---
 
@@ -20,7 +21,7 @@ import setup from '../data/setup.json';
         <md-elevated-card>
           <div class="card-body setup-card">
             <div class="setup-head">
-              <md-icon class="setup-head-icon" aria-hidden="true">{cat.icon}</md-icon>
+              <span class="setup-head-icon"><Icon name={cat.icon} /></span>
               <h2>{cat.category}</h2>
             </div>
             <div class="setup-items">
@@ -59,6 +60,7 @@ import setup from '../data/setup.json';
 
     .setup-head-icon {
       color: var(--md-sys-color-primary);
+      display: inline-flex;
     }
 
     .setup-head h2 {

@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
+import Icon from '../components/Icon.astro';
 import { SITE, NAV_ITEMS } from '../data/site';
+import { ICON_CREDITS } from '../data/icons';
 import { buildWallpaperManifest } from '../data/wallpapers';
 
 interface Props {
@@ -68,16 +70,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     <meta name="theme-color" content="#fbfcfe" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#191c1e" media="(prefers-color-scheme: dark)" />
 
-    <!-- Шрифты -->
-    <style>
-      @font-face {
-        font-family: 'Material Symbols Rounded';
-        font-style: normal;
-        font-weight: 100 700;
-        src: url('/fonts/material-symbols-rounded.woff2') format('woff2');
-        font-display: block;
-      }
-    </style>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..700&display=swap"
@@ -109,9 +101,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
             }
           </nav>
 
-          <md-icon-button id="theme-toggle" aria-label="Переключить тему">
-            <md-icon>brightness_auto</md-icon>
-          </md-icon-button>
+          <button id="theme-toggle" class="theme-btn" aria-label="Переключить тему">
+            <span class="theme-icon" aria-hidden="true">
+              <Icon name="brightness_auto" />
+            </span>
+          </button>
         </div>
       </header>
 
@@ -126,29 +120,45 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           <a href={`mailto:${SITE.email}`}>Почта</a>
         </div>
         <p style="margin: 0">© {new Date().getFullYear()} {SITE.author} · Собрано на Astro + Material Web</p>
+        {
+          ICON_CREDITS.length > 0 && (
+            <p class="footer-credits">
+              <span class="credit-label">Иконки:</span>
+              {ICON_CREDITS.map((c) => (
+                <span class="credit-item">
+                  {c.author}
+                  {c.license ? ` (${c.license})` : ''}
+                  {c.source && (
+                    <>
+                      {' · '}
+                      <a href={c.source} target="_blank" rel="noopener">источник</a>
+                    </>
+                  )}
+                </span>
+              ))}
+            </p>
+          )
+        }
       </footer>
     </div>
 
-    <!-- Мобильная навигация (MD3 Navigation Bar) -->
-    <md-navigation-bar
-      id="mobile-nav"
-      class="mobile-nav"
-      active-index={Math.max(0, NAV_ITEMS.findIndex((i) => i.href === currentPath))}
-      aria-label="Мобильная навигация"
-    >
+    <!-- Мобильная навигация -->
+    <nav class="mobile-nav" aria-label="Мобильная навигация">
       {
         NAV_ITEMS.map((item) => (
-          <md-navigation-tab
-            label={item.label}
+          <a
+            class="mobile-nav-item"
             href={item.href}
-            active={currentPath === item.href}
+            aria-label={item.label}
+            aria-current={currentPath === item.href ? 'page' : undefined}
           >
-            <md-icon slot="active-icon">{item.icon}</md-icon>
-            <md-icon slot="inactive-icon">{item.icon}</md-icon>
-          </md-navigation-tab>
+            <span class="mobile-nav-icon" aria-hidden="true">
+              <Icon name={item.icon} size={24} />
+            </span>
+          </a>
         ))
       }
-    </md-navigation-bar>
+    </nav>
 
     <div id="wallpaper-manifest" hidden data-manifest={JSON.stringify(manifest)}></div>
 
@@ -162,8 +172,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     </script>
     <script>
       import '../scripts/md3';
-      import { initMobileNav } from '../scripts/nav';
-      initMobileNav();
     </script>
   </body>
 </html>

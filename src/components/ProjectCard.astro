@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Project {
   title: string;
   description: string;
@@ -32,7 +34,11 @@ const statusLabels: Record<Project['status'], string> = {
 
     <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
       <h3 style="display: inline-flex; align-items: center; gap: 8px; margin: 0;">
-        {project.icon && <md-icon style="color: var(--md-sys-color-primary);">{project.icon}</md-icon>}
+        {project.icon && (
+          <span style="color: var(--md-sys-color-primary); display: inline-flex;">
+            <Icon name={project.icon} />
+          </span>
+        )}
         {project.title}
       </h3>
       {
@@ -58,7 +64,7 @@ const statusLabels: Record<Project['status'], string> = {
       {
         project.repo && (
           <md-outlined-button href={project.repo} target="_blank" rel="noopener">
-            <md-icon slot="icon">code</md-icon>
+            <Icon name="code" slot="icon" />
             Репозиторий
           </md-outlined-button>
         )
@@ -66,7 +72,7 @@ const statusLabels: Record<Project['status'], string> = {
       {
         project.demo && (
           <md-filled-tonal-button href={project.demo} target="_blank" rel="noopener">
-            <md-icon slot="icon">open_in_new</md-icon>
+            <Icon name="open_in_new" slot="icon" />
             Демо
           </md-filled-tonal-button>
         )
