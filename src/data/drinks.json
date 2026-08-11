@@ -1,20 +1,12 @@
 [
   {
-    "brand": "PulseUp",
-    "name": "Frozen Energy",
-    "url": "https://t.me/mybgstrat/5146",
-    "image": "https://freeimage.host/i/C6Wi31j",
-    "rating": 5.0,
+    "brand": "Burn",
+    "name": "Original Zero Sugar",
+    "url": "https://t.me/mybgstrat/5141",
+    "image": "https://iili.io/Bplx7Lb.jpg",
+    "rating": 0.45,
     "note": null
-  },  
-  {
-    "brand": "Flash Up",
-    "name": "Game Mode XP",
-    "url": "https://t.me/mybgstrat/5147",
-    "image": "https://freeimage.host/i/C6WPrbt",
-    "rating": 9.0,
-    "note": null
-  }, 
+  },
   {
     "brand": "Tornado Max Energy",
     "name": "Sour&Marm",
@@ -24,155 +16,11 @@
     "note": null
   }, 
   {
-    "brand": "Volt",
-    "name": "Ягодное драже",
-    "url": "https://t.me/mybgstrat/5157",
-    "image": "https://freeimage.host/i/C6WiuEJ",
-    "rating": 7.5,
-    "note": null
-  }, 
-  {
-    "brand": "My Rules",
-    "name": "Барбарис",
-    "url": "https://t.me/mybgstrat/5159",
-    "image": "https://freeimage.host/i/C6WiHXe",
-    "rating": 6.66,
-    "note": null
-  }, 
-  {
-    "brand": "My Rules",
-    "name": "Манго-маракуйя",
-    "url": "https://t.me/mybgstrat/5160",
-    "image": "https://freeimage.host/i/C6Wi2qb",
-    "rating": 4.25,
-    "note": null
-  }, 
-  {
-    "brand": "Milano",
-    "name": "Classic",
-    "url": "https://t.me/mybgstrat/5219",
-    "image": "https://freeimage.host/i/C6WPZg4",
-    "rating": 2.35,
-    "note": null
-  },
-  {
-    "brand": "Milano",
-    "name": "Pomegranate",
-    "url": "https://t.me/mybgstrat/5220",
-    "image": "https://freeimage.host/i/C6WPDdl",
-    "rating": 3.75,
-    "note": null
-  },
-  {
-    "brand": "Vulkan",
-    "name": "Цитрусовый взрыв",
-    "url": "https://t.me/mybgstrat/5242",
-    "image": "https://freeimage.host/i/C6WiArv",
-    "rating": 1.5,
-    "note": null
-  },
-  {
-    "brand": "WK UP Zero Sugar",
-    "name": "Raspberry Mint",
-    "url": "https://t.me/mybgstrat/5241",
-    "image": "https://freeimage.host/i/C6Wi52R",
-    "rating": 2.05,
-    "note": null
-  },
-  {
-    "brand": "Milano",
-    "name": "Berries",
-    "url": "https://t.me/mybgstrat/5239",
-    "image": "https://freeimage.host/i/C6WPQ1f",
-    "rating": 4.55,
-    "note": null
-  },
-  {
-    "brand": "Milano",
-    "name": "Mango",
-    "url": "https://t.me/mybgstrat/5240",
-    "image": "https://freeimage.host/i/C6WPb72",
-    "rating": 5.25,
-    "note": null
-  },
-  {
-    "brand": "Milano",
-    "name": "Blood Orange",
-    "url": "https://t.me/mybgstrat/5224",
-    "image": "https://freeimage.host/i/C6Wi9I9",
-    "rating": 7.5,
-    "note": null
-  },
-  {
-    "brand": "Bizon Energy",
-    "name": "Lemon-Lemongrass",
-    "url": "https://t.me/mybgstrat/5363",
-    "image": "https://freeimage.host/i/C6WPvgR",
-    "rating": 8.5,
-    "note": null
-  },
-  {
-    "brand": "Bizon Energy",
-    "name": "Mango-Maracuja",
-    "url": "https://t.me/mybgstrat/5364",
-    "image": "https://freeimage.host/i/C6WPk0v",
-    "rating": 8.0,
-    "note": null
-  },
-  {
-    "brand": "Black Rocket",
-    "name": "Original",
-    "url": "https://t.me/mybgstrat/5366",
-    "image": "https://freeimage.host/i/C6WPeqJ",
-    "rating": 3.5,
-    "note": null
-  },
-  {
-    "brand": "Spyre",
-    "name": "Розовый китайский личи",
-    "url": "https://t.me/mybgstrat/5388",
-    "image": "https://freeimage.host/i/C6WioI1",
-    "rating": 2.0,
-    "note": null
-  },
-  {
-    "brand": "Spyre",
-    "name": "Марула и бобы тонка",
-    "url": "https://t.me/mybgstrat/5389",
-    "image": "https://freeimage.host/i/C6WixhF",
-    "rating": 1.75,
-    "note": null
-  },
-  {
-    "brand": "Tornado Max Energy",
-    "name": "Iceberry",
-    "url": "https://t.me/mybgstrat/5393",
-    "image": "https://freeimage.host/i/C6WizLg",
-    "rating": 2.5,
-    "note": null
-  },
-  {
-    "brand": "Gorilla",
-    "name": "Bananas",
-    "url": "https://t.me/mybgstrat/5394",
-    "image": "https://freeimage.host/i/C6WP6zX",
-    "rating": 9.15,
-    "note": null
-  },
-  {
-    "brand": "Double Pull",
-    "name": "Сладкая малина",
-    "url": "https://t.me/mybgstrat/5407",
-    "image": "https://freeimage.host/i/C6WPNsa",
-    "rating": 1.07,
-    "note": null
-  },
-  {
-    "brand": "Flash Up",
-    "name": "Lemon Waffle",
-    "url": "https://t.me/mybgstrat/5415",
-    "image": "https://freeimage.host/i/C6WPU5N",
-    "rating": 1.05,
+    "brand": "The Scandalist",
+    "name": "Ex's Heart",
+    "url": "https://t.me/mybgstrat/5034",
+    "image": "https://iili.io/BmHHKf2.jpg",
+    "rating": 0.75,
     "note": null
   },
   {
@@ -181,22 +29,6 @@
     "url": "https://t.me/mybgstrat/5420",
     "image": "https://freeimage.host/i/C6WPPXn",
     "rating": 0.85,
-    "note": null
-  },
-  {
-    "brand": "Burn",
-    "name": "Original Zero Sugar",
-    "url": "https://t.me/mybgstrat/5141",
-    "image": "https://iili.io/Bplx7Lb.jpg",
-    "rating": 0.45,
-    "note": null
-  },
-  {
-    "brand": "The Scandalist",
-    "name": "Ex's Heart",
-    "url": "https://t.me/mybgstrat/5034",
-    "image": "https://iili.io/BmHHKf2.jpg",
-    "rating": 0.75,
     "note": null
   },
   {
@@ -213,6 +45,22 @@
     "url": "https://t.me/mybgstrat/5086",
     "image": "https://iili.io/BmHHqU7.jpg",
     "rating": 1,
+    "note": null
+  },
+  {
+    "brand": "Flash Up",
+    "name": "Lemon Waffle",
+    "url": "https://t.me/mybgstrat/5415",
+    "image": "https://freeimage.host/i/C6WPU5N",
+    "rating": 1.05,
+    "note": null
+  },
+  {
+    "brand": "Double Pull",
+    "name": "Сладкая малина",
+    "url": "https://t.me/mybgstrat/5407",
+    "image": "https://freeimage.host/i/C6WPNsa",
+    "rating": 1.07,
     "note": null
   },
   {
@@ -248,6 +96,22 @@
     "note": "(1.337 - Я и 1.488 - Киря)"
   },
   {
+    "brand": "Vulkan",
+    "name": "Цитрусовый взрыв",
+    "url": "https://t.me/mybgstrat/5242",
+    "image": "https://freeimage.host/i/C6WiArv",
+    "rating": 1.5,
+    "note": null
+  },
+  {
+    "brand": "Spyre",
+    "name": "Марула и бобы тонка",
+    "url": "https://t.me/mybgstrat/5389",
+    "image": "https://freeimage.host/i/C6WixhF",
+    "rating": 1.75,
+    "note": null
+  },
+  {
     "brand": "Tornado Max Energy",
     "name": "Russian",
     "url": "https://t.me/mybgstrat/4990",
@@ -256,11 +120,43 @@
     "note": null
   },
   {
+    "brand": "Spyre",
+    "name": "Розовый китайский личи",
+    "url": "https://t.me/mybgstrat/5388",
+    "image": "https://freeimage.host/i/C6WioI1",
+    "rating": 2.0,
+    "note": null
+  },
+  {
+    "brand": "WK UP Zero Sugar",
+    "name": "Raspberry Mint",
+    "url": "https://t.me/mybgstrat/5241",
+    "image": "https://freeimage.host/i/C6Wi52R",
+    "rating": 2.05,
+    "note": null
+  },
+  {
     "brand": "PulseUp",
     "name": "Mojito",
     "url": "https://t.me/mybgstrat/4583",
     "image": "https://iili.io/BmH91P2.jpg",
     "rating": 2.28,
+    "note": null
+  },
+  {
+    "brand": "Milano",
+    "name": "Classic",
+    "url": "https://t.me/mybgstrat/5219",
+    "image": "https://freeimage.host/i/C6WPZg4",
+    "rating": 2.35,
+    "note": null
+  },
+  {
+    "brand": "Tornado Max Energy",
+    "name": "Iceberry",
+    "url": "https://t.me/mybgstrat/5393",
+    "image": "https://freeimage.host/i/C6WizLg",
+    "rating": 2.5,
     "note": null
   },
   {
@@ -297,12 +193,36 @@
   },
   {
     "brand": "Black Rocket",
+    "name": "Original",
+    "url": "https://t.me/mybgstrat/5366",
+    "image": "https://freeimage.host/i/C6WPeqJ",
+    "rating": 3.5,
+    "note": null
+  },
+  {
+    "brand": "Milano",
+    "name": "Pomegranate",
+    "url": "https://t.me/mybgstrat/5220",
+    "image": "https://freeimage.host/i/C6WPDdl",
+    "rating": 3.75,
+    "note": null
+  },
+  {
+    "brand": "Black Rocket",
     "name": "Манго-абрикос",
     "url": "https://t.me/mybgstrat/4816",
     "image": "https://iili.io/BmH9Oox.jpg",
     "rating": 4.24,
     "note": null
   },
+  {
+    "brand": "My Rules",
+    "name": "Манго-маракуйя",
+    "url": "https://t.me/mybgstrat/5160",
+    "image": "https://freeimage.host/i/C6Wi2qb",
+    "rating": 4.25,
+    "note": null
+  }, 
   {
     "brand": "Volt",
     "name": "Малина-Личи",
@@ -320,12 +240,36 @@
     "note": "(4.2 - Я и 4.5 - Киря)"
   },
   {
+    "brand": "Milano",
+    "name": "Berries",
+    "url": "https://t.me/mybgstrat/5239",
+    "image": "https://freeimage.host/i/C6WPQ1f",
+    "rating": 4.55,
+    "note": null
+  },
+  {
     "brand": "Ашкуди Energy",
     "name": "Mandarin Ginger",
     "url": "https://t.me/mybgstrat/4723",
     "image": "https://iili.io/BmH9GFS.jpg",
     "rating": 4.75,
     "note": "(7 - Я и 3.5 - Киря)"
+  },
+  {
+    "brand": "PulseUp",
+    "name": "Frozen Energy",
+    "url": "https://t.me/mybgstrat/5146",
+    "image": "https://freeimage.host/i/C6Wi31j",
+    "rating": 5.0,
+    "note": null
+  },  
+  {
+    "brand": "Milano",
+    "name": "Mango",
+    "url": "https://t.me/mybgstrat/5240",
+    "image": "https://freeimage.host/i/C6WPb72",
+    "rating": 5.25,
+    "note": null
   },
   {
     "brand": "Flash Up",
@@ -360,6 +304,14 @@
     "note": "(5.9 - Я, 7 - Киря)"
   },
   {
+    "brand": "My Rules",
+    "name": "Барбарис",
+    "url": "https://t.me/mybgstrat/5159",
+    "image": "https://freeimage.host/i/C6WiHXe",
+    "rating": 6.66,
+    "note": null
+  }, 
+  {
     "brand": "The Scandalist",
     "name": "R3: Актив Geneve",
     "url": "https://t.me/mybgstrat/4998",
@@ -392,6 +344,22 @@
     "note": null
   },
   {
+    "brand": "Milano",
+    "name": "Blood Orange",
+    "url": "https://t.me/mybgstrat/5224",
+    "image": "https://freeimage.host/i/C6Wi9I9",
+    "rating": 7.5,
+    "note": null
+  },
+  {
+    "brand": "Volt",
+    "name": "Ягодное драже",
+    "url": "https://t.me/mybgstrat/5157",
+    "image": "https://freeimage.host/i/C6WiuEJ",
+    "rating": 7.5,
+    "note": null
+  }, 
+  {
     "brand": "Volt",
     "name": "Помело-Мята",
     "url": "https://t.me/mybgstrat/4886",
@@ -416,11 +384,43 @@
     "note": null
   },
   {
+    "brand": "Bizon Energy",
+    "name": "Mango-Maracuja",
+    "url": "https://t.me/mybgstrat/5364",
+    "image": "https://freeimage.host/i/C6WPk0v",
+    "rating": 8,
+    "note": null
+  },
+  {
+    "brand": "Bizon Energy",
+    "name": "Lemon-Lemongrass",
+    "url": "https://t.me/mybgstrat/5363",
+    "image": "https://freeimage.host/i/C6WPvgR",
+    "rating": 8.5,
+    "note": null
+  },
+  {
+    "brand": "Flash Up",
+    "name": "Game Mode XP",
+    "url": "https://t.me/mybgstrat/5147",
+    "image": "https://freeimage.host/i/C6WPrbt",
+    "rating": 9,
+    "note": null
+  }, 
+  {
     "brand": "Flash Up Zero Mode",
     "name": "Peach Bilberry",
     "url": "https://t.me/mybgstrat/4561",
     "image": "https://iili.io/BmH97us.jpg",
     "rating": 9,
+    "note": null
+  },
+  {
+    "brand": "Gorilla",
+    "name": "Bananas",
+    "url": "https://t.me/mybgstrat/5394",
+    "image": "https://freeimage.host/i/C6WP6zX",
+    "rating": 9.15,
     "note": null
   }
 ]
