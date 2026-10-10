@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barnaul Time & Weather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .widget {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 20px 10px 14px;
+            border-radius: 16px;
+            background: rgba(15, 15, 20, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(188, 244, 151, 0.15);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3),
+                        0 0 40px rgba(188, 244, 151, 0.04);
+        }
+
+        /* Time section */
+        .time-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            min-width: 72px;
+        }
+
+        .time {
+            font-size: 28px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1;
+            letter-spacing: -0.5px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .seconds {
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(188, 244, 151, 0.6);
+            line-height: 1.2;
+            margin-top: 1px;
+        }
+
+        /* Divider */
+        .divider {
+            width: 1px;
+            height: 36px;
+            background: rgba(188, 244, 151, 0.2);
+            flex-shrink: 0;
+        }
+
+        /* Info section */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .city-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .city {
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .location-dot {
+            width: 5px;
+            height: 5px;
+            background: #BCF497;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(188, 244, 151, 0.5);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .weather-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .weather-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .weather-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #BCF497;
+        }
+
+        .temp {
+            font-size: 18px;
+            font-weight: 600;
+            color: #BCF497;
+            line-height: 1;
+        }
+
+        .condition {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Loading state */
+        .loading {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <div class="time-section">
+            <div class="time" id="time">--:--</div>
+            <div class="seconds" id="seconds">--</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="info-section">
+            <div class="city-row">
+                <span class="city">Барнаул</span>
+                <div class="location-dot"></div>
+            </div>
+            <div class="weather-row" id="weather">
+                <span class="loading">загрузка...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === TIME ===
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            document.getElementById('time').textContent = hours + ':' + minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // === WEATHER ===
+        // Using Open-Meteo free API (no key needed)
+        // Barnaul coordinates: 53.36°N, 83.76°E
+        const WEATHER_API = 'https://api.open-meteo.com/v1/forecast?latitude=53.36&longitude=83.76&current=temperature_2m,weather_code&timezone=Asia%2FBarnaul';
+
+        const weatherCodes = {
+            0: { text: 'Ясно', icon: 'sun' },
+            1: { text: 'Преим. ясно', icon: 'sun-cloud' },
+            2: { text: 'Перем. облачность', icon: 'sun-cloud' },
+            3: { text: 'Пасмурно', icon: 'cloud' },
+            45: { text: 'Туман', icon: 'cloud' },
+            48: { text: 'Иней', icon: 'cloud' },
+            51: { text: 'Морось', icon: 'rain' },
+            53: { text: 'Морось', icon: 'rain' },
+            55: { text: 'Морось', icon: 'rain' },
+            61: { text: 'Небольшой дождь', icon: 'rain' },
+            63: { text: 'Дождь', icon: 'rain' },
+            65: { text: 'Сильный дождь', icon: 'rain' },
+            71: { text: 'Небольшой снег', icon: 'snow' },
+            73: { text: 'Снег', icon: 'snow' },
+            75: { text: 'Сильный снег', icon: 'snow' },
+            80: { text: 'Ливень', icon: 'rain' },
+            81: { text: 'Ливень', icon: 'rain' },
+            82: { text: 'Сильный ливень', icon: 'rain' },
+            95: { text: 'Гроза', icon: 'storm' },
+            96: { text: 'Гроза с градом', icon: 'storm' },
+            99: { text: 'Гроза с градом', icon: 'storm' }
+        };
+
+        const icons = {
+            sun: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`,
+            'sun-cloud': `<svg viewBox="0 0 24 24"><circle cx="15" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6 18a4 4 0 0 1 0-8h.5A5.5 5.5 0 0 1 17 9.5V10a4 4 0 0 1 0 8H6z"/></svg>`,
+            cloud: `<svg viewBox="0 0 24 24"><path d="M6 18a4 4 0 0 1 0-8h.5A5.5 5.5 0 0 1 17 9.5V10a4 4 0 0 1 0 8H6z"/></svg>`,
+            rain: `<svg viewBox="0 0 24 24"><path d="M6 16a4 4 0 0 1 0-8h.5A5.5 5.5 0 0 1 17 7.5V8a4 4 0 0 1 0 8H6z"/><path d="M8 20v2m4-2v2m4-2v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>`,
+            snow: `<svg viewBox="0 0 24 24"><path d="M6 16a4 4 0 0 1 0-8h.5A5.5 5.5 0 0 1 17 7.5V8a4 4 0 0 1 0 8H6z"/><circle cx="9" cy="21" r="1"/><circle cx="15" cy="21" r="1"/><circle cx="12" cy="19" r="1"/></svg>`,
+            storm: `<svg viewBox="0 0 24 24"><path d="M6 14a4 4 0 0 1 0-8h.5A5.5 5.5 0 0 1 17 5.5V6a4 4 0 0 1 0 8H6z"/><path d="M11 16l-2 4h3l-1 4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg>`
+        };
+
+        async function fetchWeather() {
+            try {
+                const response = await fetch(WEATHER_API);
+                const data = await response.json();
+
+                const temp = Math.round(data.current.temperature_2m);
+                const code = data.current.weather_code;
+                const weatherInfo = weatherCodes[code] || { text: 'Неизвестно', icon: 'cloud' };
+
+                const weatherHTML = `
+                    <div class="weather-icon">${icons[weatherInfo.icon] || icons.cloud}</div>
+                    <span class="temp">${temp}°</span>
+                    <span class="condition">${weatherInfo.text}</span>
+                `;
+
+                document.getElementById('weather').innerHTML = weatherHTML;
+            } catch (e) {
+                document.getElementById('weather').innerHTML = '<span class="loading">н/д</span>';
+            }
+        }
+
+        fetchWeather();
+        // Refresh weather every 10 minutes
+        setInterval(fetchWeather, 600000);
+    </script>
+</body>
+</html>
